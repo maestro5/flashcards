@@ -1,0 +1,8 @@
+.container
+  nav.navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        = link_to 'Флэшкарточкер', root_path, class: 'navbar-brand'
+      ul.nav.navbar-nav.navbar-right
+        li= link_to 'Все карточки', cards_path
+        li= link_to 'Добавить карточку', '#'

@@ -1,0 +1,6 @@
+.container
+  - @cards.each_slice(3) do |cards|
+    .row
+      .col-lg-12
+        = render cards
+  .text-center = paginate @cards

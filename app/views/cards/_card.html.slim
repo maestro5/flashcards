@@ -1,0 +1,12 @@
+.col-md-4
+  .panel.panel-success
+    .panel-heading
+      h3.text-center Карточка № #{card.id}
+    .panel-body
+      .row
+        .col-md-6
+          .lead.text-center #{card.original_text}
+        .col-md-6
+          .lead.text-center #{card.translated_text}
+    .panel-footer
+      .small #{date_format(card.review_date_on)}
