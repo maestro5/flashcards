@@ -5,8 +5,9 @@
     .panel-body
       .row
         .col-md-6
-          .lead.text-center #{card.original_text}
+          .lead.text-center = card.original_text
         .col-md-6
-          .lead.text-center #{card.translated_text}
+          .lead.text-center = card.translated_text
     .panel-footer
-      .small #{date_format(card.review_date_on)}
+      .small
+        = l card.review_date_on, format: :short if card.review_date_on
