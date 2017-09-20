@@ -2,7 +2,7 @@
   nav.navbar.navbar-default
     .container-fluid
       .navbar-header
-        = link_to 'Флэшкарточкер', root_path, class: 'navbar-brand'
+        = link_to t('navbar.brand'), root_path, class: 'navbar-brand'
       ul.nav.navbar-nav.navbar-right
-        li= link_to 'Все карточки', cards_path
-        li= link_to 'Добавить карточку', '#'
+        li= link_to t('navbar.all_cards'), cards_path
+        li= link_to t('navbar.add_card'), new_card_path

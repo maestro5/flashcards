@@ -15,6 +15,50 @@ ru:
           other: "Отображение <b>все %{count}</b> %{entry_name}"
       more_pages:
         display_entries: "Отображение %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> из <b>%{total}</b> всего"
+
+  simple_form:
+    placeholders:
+      card:
+        original_text: 'Оригинальный текст'
+        translated_text: 'Переведенный текст'
+  helpers:
+    submit:
+      card:
+        create: "Добавить карточку"
+        update: "Сохранить"
+  activemodel:
+    errors:
+      models:
+        card_form:
+          attributes:
+            original_text:
+              blank: 'Не может быть пустым'
+            translated_text:
+              blank: 'Не может быть пустым'
+            review_date_on:
+              blank: 'Не может быть пустым'
+            have_to_be_different: 'Слова должны отличаться'
+  card_panel:
+    new_title: 'Новая карточка'
+    edit_title: 'Редактирование карточки №'
+    show_title: 'Карточка №'
+    destroy_confirm_msg: 'Вы уверены?'
+  cards_messages:
+    create_success: 'Карточка успешно создана.'
+    update_success: 'Карточка успешно изменена.'
+    destroy_success: 'Карточка успешно удалена.'
+
+  navbar:
+    brand: 'Флэшкарточкер'
+    all_cards: 'Все карточки'
+    add_card: 'Добавить карточку'
+  
+  home_page:
+    app_name: 'Флэшкарточкер'
+    app_description: 'Первый в мире удобный менеджер флеш-карточек. Именно так'
+    call_to_action: 'Создать карточку'
+    
+
   date:
     formats:
-      short: '%d.%m.%Y'        
+      short: '%d.%m.%Y'
