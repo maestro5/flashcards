@@ -1,7 +1,9 @@
 .col-md-4
   .panel.panel-success
     .panel-heading
-      h3.text-center Карточка № #{card.id}
+      .text-right
+        = link_to fa_icon('edit'), edit_card_path(card), class: 'btn-edit'
+      h3.text-center #{t 'card_panel.show_title'}#{card.id}
     .panel-body
       .row
         .col-md-6
@@ -9,5 +11,8 @@
         .col-md-6
           .lead.text-center = card.translated_text
     .panel-footer
-      .small
-        = l card.review_date_on, format: :short if card.review_date_on
+      .row
+        .col-md-6
+          .small = l card.review_date_on, format: :short
+        .col-md-6.text-right
+          = link_to fa_icon('close'), card_path(card), method: :delete, data: {confirm: t('card_panel.destroy_confirm_msg')}

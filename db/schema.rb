@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 20170919082713) do
   enable_extension "plpgsql"
 
   create_table "cards", force: :cascade do |t|
-    t.string "original_text"
-    t.string "translated_text"
-    t.date "review_date_on"
+    t.string "original_text", null: false
+    t.string "translated_text", null: false
+    t.date "review_date_on", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
