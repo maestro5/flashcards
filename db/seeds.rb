@@ -1,11 +1,17 @@
-original_words   = %w[movie cartoon garlic parsley]
-translated_words = %w[фильм мультфильм чеснок петрушка]
-review_dates     = %w[18.09.2017 19.09.2017 19.09.2017 20.09.17]
+require 'open-uri'
 
-original_words.zip(translated_words, review_dates).each do |card|
+current_date = Time.now
+url = "http://1000mostcommonwords.com/1000-most-common-german-words/"
+page = Nokogiri::HTML(open(url))
+
+page.css('tr').each_with_index do |tr, index|
+  next if index == 0
   Card.create(
-    original_text:   card[0],
-    translated_text: card[1],
-    review_date_on:  card[2]&.to_date
+    original_text:   tr.css('td')[1].text,
+    translated_text: tr.css('td')[2].text,
+    review_date_on:  current_date
   )
 end
+
+cards_count = Card.count
+puts "#{cards_count} #{'card'.pluralize cards_count} was created from #{url}" unless cards_count.zero?

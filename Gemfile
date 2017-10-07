@@ -19,6 +19,7 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
 gem 'kaminari', '~> 1.0', '>= 1.0.1'
+gem 'nokogiri', '~> 1.8', '>= 1.8.1'
 gem 'simple_form', '~> 3.5'
 gem 'slim-rails', '~> 3.1', '>= 3.1.2'
 gem 'toastr-rails', '~> 1.0', '>= 1.0.3'
