@@ -1,5 +1,4 @@
-.container
-  .jumbotron
-    h1 = t('home_page.app_name')
-    p = t('home_page.app_description')
-    p = link_to t('home_page.call_to_action'), new_card_path, class: 'btn btn-success btn-lg'
+- if @card
+  = render 'pages/card_translate'
+- else
+  = render 'pages/jumbotron'
