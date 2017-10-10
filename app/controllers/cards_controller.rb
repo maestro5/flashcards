@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :find_card, only: %i[show edit update destroy check]
+  before_action :find_card, only: %i(show edit update destroy check)
 
   CARDS_PER_PAGE = 12
 
@@ -37,8 +37,7 @@ class CardsController < ApplicationController
   end
 
   def check
-    if @card.translation_is_faithful?(card_params[:translated_text])
-      @card.postpone_review_date
+    if @card.review! card_params[:translated_text]
       flash[:success] = t 'cards_messages.translation_success'
       redirect_to root_path
     else

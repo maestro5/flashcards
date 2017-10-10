@@ -1,35 +1,40 @@
 class Card < ApplicationRecord
   before_validation :capitalize_words
-  before_create :add_review_date
+  before_create :set_review_date!
 
   validates :original_text, :translated_text, presence: true
   validate :words_are_different
 
-  scope :random_overdue_cards, -> { where('review_date_on <= ?', Time.current - 3.days).order("RANDOM()") }
-
   REVIEW_INTERVAL = 3
 
-  def translation_is_faithful?(translation)
-    translated_text == multi_lang_capitalize(translation.strip)
+  scope :random_overdue_cards, -> { where('review_date_on <= ?', Time.current - REVIEW_INTERVAL.days).order("RANDOM()") }
+
+  def review!(translation)
+    translation_is_faithful?(translation) && postpone_review_date!
   end
 
-  def postpone_review_date
-    update_attribute(:review_date_on, REVIEW_INTERVAL.days.since)
+  def translation_is_faithful?(translation)
+    translated_text == convert_string(translation)
+  end
+
+  def postpone_review_date!
+    set_review_date!
+    save
   end
 
   private
 
-  def add_review_date
+  def set_review_date!
     self.review_date_on = REVIEW_INTERVAL.days.since
   end
 
   def capitalize_words
-    self.original_text   = multi_lang_capitalize(original_text)
-    self.translated_text = multi_lang_capitalize(translated_text)
+    self.original_text   = convert_string(original_text)
+    self.translated_text = convert_string(translated_text)
   end
 
-  def multi_lang_capitalize(string)
-    string.mb_chars.capitalize.to_s
+  def convert_string(string)
+    string.strip.capitalize
   end
 
   def words_are_different

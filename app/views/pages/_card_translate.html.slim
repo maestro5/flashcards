@@ -5,13 +5,12 @@
         f.error_notification
         .panel.panel-success
           .panel-heading
-            h3.text-center = t("card_panel.show_title").concat @card.id.to_s
+            h3.text-center #{t("card_panel.show_title")} #{@card.id.to_s}
           .panel-body
             .row
               .col-md-6
                 = f.input :original_text, label: false, readonly: true, input_html: {class: 'input-lg'}
               .col-md-6
                 = f.input :translated_text, label: false, input_html: {value: '', class: 'input-lg'}
-              = f.input :review_date_on, as: :hidden
             .small
               = f.button :submit, t('card_panel.check'), class: 'btn btn-success form-control'
