@@ -1,4 +1,4 @@
-class CardReviewkService
+class CardReviewService
   attr_reader :card, :translation
 
   def initialize(params)
