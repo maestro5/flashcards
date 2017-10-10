@@ -37,7 +37,7 @@ class CardsController < ApplicationController
   end
 
   def check
-    if @card.review! card_params[:translated_text]
+    if CardReviewkService.new(params).review!
       flash[:success] = t 'cards_messages.translation_success'
       redirect_to root_path
     else
