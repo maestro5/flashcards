@@ -14,6 +14,8 @@ class CardReviewService
     card.translated_text == translation
   end
 
+  private
+
   def postpone_review_date!
     card.set_next_review_date!
     card.save

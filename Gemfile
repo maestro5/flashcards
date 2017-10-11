@@ -26,6 +26,8 @@ gem 'toastr-rails', '~> 1.0', '>= 1.0.3'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
+  gem 'factory_girl_rails', '~> 4.8'
 end
 
 group :development do
