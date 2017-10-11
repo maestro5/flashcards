@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :find_card, only: %i[show edit update destroy]
+  before_action :find_card, only: %i(show edit update destroy check)
 
   CARDS_PER_PAGE = 12
 
@@ -34,6 +34,16 @@ class CardsController < ApplicationController
     @card.destroy
     flash[:success] = t 'cards_messages.destroy_success'
     redirect_to cards_path
+  end
+
+  def check
+    if CardReviewService.new(@card, card_params[:translated_text]).review!
+      flash[:success] = t 'cards_messages.translation_success'
+      redirect_to root_path
+    else
+      flash[:error] = t 'cards_messages.translation_wrong'
+      render 'pages/home'
+    end
   end
 
   private

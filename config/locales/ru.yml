@@ -38,26 +38,28 @@ ru:
             have_to_be_different: 'Слова должны отличаться'
 
   card_panel:
-    new_title: 'Новая карточка'
-    create_title: 'Новая карточка'
-    edit_title: 'Редактирование карточки №'
-    update_title: 'Редактирование карточки №'
-    show_title: 'Карточка №'
-    destroy_confirm_msg: 'Вы уверены?'
+    new_title: Новая карточка
+    create_title: Новая карточка
+    edit_title: Редактирование карточки №
+    update_title: Редактирование карточки №
+    show_title: Карточка №
+    destroy_confirm_msg: Вы уверены?
+    check: Проверить
   cards_messages:
-    create_success: 'Карточка успешно создана.'
-    update_success: 'Карточка успешно изменена.'
-    destroy_success: 'Карточка успешно удалена.'
-
+    create_success: Карточка успешно создана.
+    update_success: Карточка успешно изменена.
+    destroy_success: Карточка успешно удалена.
+    translation_success: Поздравляем! Перевод верный.
+    translation_wrong: Перевод неверный.
   navbar:
-    brand: 'Флэшкарточкер'
-    all_cards: 'Все карточки'
-    add_card: 'Добавить карточку'
+    brand: Флэшкарточкер
+    all_cards: Все карточки
+    add_card: Добавить карточку
   
   home_page:
-    app_name: 'Флэшкарточкер'
-    app_description: 'Первый в мире удобный менеджер флеш-карточек. Именно так'
-    call_to_action: 'Создать карточку'
+    app_name: Флэшкарточкер
+    app_description: Первый в мире удобный менеджер флеш-карточек. Именно так
+    call_to_action: Создать карточку
 
   date:
     formats:
