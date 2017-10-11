@@ -1,9 +1,9 @@
 class CardReviewService
   attr_reader :card, :translation
 
-  def initialize(params)
-    @card = Card.find params[:id]
-    @translation = params[:card][:translated_text].strip.capitalize
+  def initialize(card, translation)
+    @card        = card
+    @translation = translation.strip.capitalize
   end
 
   def review!
