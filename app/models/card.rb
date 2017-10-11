@@ -3,7 +3,7 @@ class Card < ApplicationRecord
   before_create :set_next_review_date!
 
   validates :original_text, :translated_text, presence: true
-  validate :words_are_different
+  validate :translated_text_not_equal_original
 
   REVIEW_INTERVAL = 3
 
@@ -20,10 +20,9 @@ class Card < ApplicationRecord
     self.translated_text = translated_text.to_s.strip.capitalize
   end
 
-  def words_are_different
+  def translated_text_not_equal_original
     return unless original_text == translated_text
     msg = I18n.t('activerecord.errors.models.card.attributes.have_to_be_different')
-    errors.add(:original_text, msg)
     errors.add(:translated_text, msg)
   end
 end
