@@ -16,8 +16,8 @@ class Card < ApplicationRecord
   private
 
   def capitalize_words
-    self.original_text   = original_text.strip.capitalize
-    self.translated_text = translated_text.strip.capitalize
+    self.original_text   = original_text.to_s.strip.capitalize
+    self.translated_text = translated_text.to_s.strip.capitalize
   end
 
   def words_are_different

@@ -3,7 +3,7 @@ class CardReviewService
 
   def initialize(card, translation)
     @card        = card
-    @translation = translation.strip.capitalize
+    @translation = translation.to_s.strip.capitalize
   end
 
   def review!
