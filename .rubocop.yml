@@ -8,7 +8,7 @@ AllCops:
     - 'Gemfile'
     - 'bin/**/*'
     - 'config/**/*'
-    - 'spec/spec_helper.rb'
+    - 'spec/**/*'
 
 Style/Documentation:
   Enabled: false

@@ -26,6 +26,20 @@ RSpec.describe Card, type: :model do
     end
   end
 
+  it '.random_overdue_cards' do
+    total_number_of_cards = 10
+    number_of_cards_with_expired_review_date = 7
+
+    create_list :card, total_number_of_cards
+    Card.take(number_of_cards_with_expired_review_date).each do |card|
+      card.update(review_date_on: '20170101'.to_date)
+    end
+    cards = Card.random_overdue_cards
+
+    expect(cards.count).to eq number_of_cards_with_expired_review_date
+    expect(cards).to_not eq Card.random_overdue_cards
+  end
+
   it '#set_next_review_date!' do
     card = Card.create original_text: 'mouse', translated_text: 'мышь'
     card.update(review_date_on: '20170101'.to_date)
