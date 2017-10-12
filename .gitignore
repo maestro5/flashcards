@@ -12,7 +12,6 @@
 config/database.yml
 config/secrets.yml
 public/uploads
-Gemfile.lock
 
 .byebug_history
 .ruby-gemset

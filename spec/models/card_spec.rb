@@ -1,49 +1,58 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :model do
-  context 'when invalid card' do
-    test_values =
-      [
-        # [original_text, translated_text]
-        [' mouSe  ', '  mOusE '],
-        ['  КоШКа ', ' кошкА  ']
-      ]
-    test_values.each do |test_value|
-      it "when original_text: #{test_value[0]} and translated_text: #{test_value[1]}" do
-        card = Card.new original_text: test_value[0], translated_text: test_value[1]
-        error_msg = I18n.t('activerecord.errors.models.card.attributes.have_to_be_different')
-        expect(card.save).to be false
-        expect(card.errors[:translated_text]).to include error_msg
+  # when card is invalid
+  it 'invalid with same english original and translated text' do
+    card = Card.new original_text: ' mouSe  ', translated_text: '  mOusE '
+    error_msg = I18n.t('activerecord.errors.models.card.attributes.have_to_be_different')
+    card.valid?
+    expect(card.errors[:translated_text]).to include error_msg
+  end
+
+  it 'invalid with same russian original and translated text' do
+    card = Card.new original_text: '  КоШКа ', translated_text: ' кошкА  '
+    error_msg = I18n.t('activerecord.errors.models.card.attributes.have_to_be_different')
+    card.valid?
+    expect(card.errors[:translated_text]).to include error_msg
+  end
+
+  # when card is valid
+  it 'valid with different original and translated text' do
+    card = Card.new original_text: ' mouSe  ', translated_text: '  мыШь '
+    card.valid?
+    expect(card.errors).to be_empty
+  end
+
+  # methods
+  describe '.random_overdue_cards' do
+    let(:total_number_of_cards) { 10 }
+    let(:number_of_cards_with_expired_review_date) { 7 }
+    let!(:cards) { create_list :card, total_number_of_cards }
+
+    before do
+      Card.take(number_of_cards_with_expired_review_date).each do |card|
+        card.update(review_date_on: '20170101'.to_date)
       end
     end
-  end
 
-  context 'when valid card' do
-    it "when original text and translated text are different" do
-      card = Card.new original_text: ' mouSe  ', translated_text: '  мыШь '
-      expect(card.save).to be true
-      expect(card.errors).to be_empty
+    it 'returns a collection of cards with the overdue date of review' do
+      overdue_cards = Card.random_overdue_cards
+      expect(overdue_cards.count).to eq number_of_cards_with_expired_review_date
+    end
+
+    it 'returns a random sequence of cards' do
+      expect(Card.random_overdue_cards).to_not eq Card.random_overdue_cards
     end
   end
 
-  it '.random_overdue_cards' do
-    total_number_of_cards = 10
-    number_of_cards_with_expired_review_date = 7
+  describe '#set_next_review_date!' do
+    let(:next_review_date) { (Time.current + Card::REVIEW_INTERVAL.days).to_date }
 
-    create_list :card, total_number_of_cards
-    Card.take(number_of_cards_with_expired_review_date).each do |card|
+    it 'sets the next review date' do
+      card = Card.create original_text: 'mouse', translated_text: 'мышь'
       card.update(review_date_on: '20170101'.to_date)
+      card.set_next_review_date!
+      expect(card.review_date_on).to eq(next_review_date)
     end
-    cards = Card.random_overdue_cards
-
-    expect(cards.count).to eq number_of_cards_with_expired_review_date
-    expect(cards).to_not eq Card.random_overdue_cards
-  end
-
-  it '#set_next_review_date!' do
-    card = Card.create original_text: 'mouse', translated_text: 'мышь'
-    card.update(review_date_on: '20170101'.to_date)
-    card.set_next_review_date!
-    expect(card.review_date_on).to eq((Time.current + Card::REVIEW_INTERVAL.days).to_date)
   end
 end

@@ -10,11 +10,11 @@ class CardReviewService
     translation_is_faithful? && postpone_review_date!
   end
 
+  private
+
   def translation_is_faithful?
     card.translated_text == translation
   end
-
-  private
 
   def postpone_review_date!
     card.set_next_review_date!
