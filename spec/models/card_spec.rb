@@ -1,17 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :model do
+  let(:overdue_review_date) { '20170101'.to_date }
+  let(:error_msg) { I18n.t('activerecord.errors.models.card.attributes.have_to_be_different') }
+
   # when card is invalid
   it 'invalid with same english original and translated text' do
     card = Card.new original_text: ' mouSe  ', translated_text: '  mOusE '
-    error_msg = I18n.t('activerecord.errors.models.card.attributes.have_to_be_different')
     card.valid?
     expect(card.errors[:translated_text]).to include error_msg
   end
 
   it 'invalid with same russian original and translated text' do
     card = Card.new original_text: '  КоШКа ', translated_text: ' кошкА  '
-    error_msg = I18n.t('activerecord.errors.models.card.attributes.have_to_be_different')
     card.valid?
     expect(card.errors[:translated_text]).to include error_msg
   end
@@ -31,7 +32,7 @@ RSpec.describe Card, type: :model do
 
     before do
       Card.take(number_of_cards_with_expired_review_date).each do |card|
-        card.update(review_date_on: '20170101'.to_date)
+        card.update(review_date_on: overdue_review_date)
       end
     end
 
@@ -50,7 +51,7 @@ RSpec.describe Card, type: :model do
 
     it 'sets the next review date' do
       card = Card.create original_text: 'mouse', translated_text: 'мышь'
-      card.update(review_date_on: '20170101'.to_date)
+      card.update(review_date_on: overdue_review_date)
       card.set_next_review_date!
       expect(card.review_date_on).to eq(next_review_date)
     end
