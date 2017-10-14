@@ -6,12 +6,12 @@ RSpec.describe CardReviewService, type: :model do
 
     before { card.update(review_date_on: '20170101'.to_date) }
 
-    it 'failure with wrong translation' do
+    it 'does not change the review date when translation is wrong' do
       service = CardReviewService.new card, 'elephant'
       expect { service.review! }.to_not change(card, :review_date_on)
     end
 
-    it 'successfully with correct translation' do
+    it 'does change the review date when translation is correct' do
       service = CardReviewService.new card, ' cAt  '
       expect { service.review! }.to change(card, :review_date_on)
     end
