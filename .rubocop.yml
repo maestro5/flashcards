@@ -8,12 +8,15 @@ AllCops:
     - 'Gemfile'
     - 'bin/**/*'
     - 'config/**/*'
+    - 'spec/**/*'
 
 Style/Documentation:
   Enabled: false
 
 Metrics/LineLength:
   Max: 120
+Metrics/BlockLength:
+  Max: 30
 
 Style/StringLiterals:
   Description: 'Checks if uses of quotes match the configured preference.'
