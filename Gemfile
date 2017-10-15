@@ -28,6 +28,9 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
   gem 'factory_girl_rails', '~> 4.8'
+  gem 'capybara', '~> 2.15', '>= 2.15.4'
+  gem 'selenium-webdriver', '~> 3.6'
+  gem 'launchy', '~> 2.4', '>= 2.4.3'
 end
 
 group :development do
